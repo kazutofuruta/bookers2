@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+               <!-- 切り取る共通部分 -->
+<%= render 'books/list', book: @bookn, user: @user %>
+	</div>
+
+        <div class="col-lg-9">
+
+			 <h2>Book detail</h2>
+			<table class="table table-striped">
+				<tr>
+					<th></th><th>title</th><th>opinion</th>
+				</tr>
+				<tr>
+					<td><%= attachment_image_tag @book.user, :image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %><br>
+					<td><%= @book.title %></td><td><%= @book.opinion %></td>
+				</tr>
+
+			</table>
+			<%= link_to @book.user.name, user_path(@book.user), class: "btn btn-default center-inline user_#{@book.user}", style: "width: 100px; text-align: center;" %>
+			<% if @book.user.id == current_user.id %>
+			<%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-success active edit_book_#{@book.id}" %>
+			<%= link_to "Delete", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" , class: "btn btn-danger destroy_book_#{@book.id}" %>
+			<% end %>
+        </div>
+    </div>
+</div>
+
